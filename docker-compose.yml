@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  storage-server:
+    build: server/
+    image: omarzos/siman-doc-storage-server:latest
+    container_name: siman-doc-storage-server
+    hostname: siman-doc-storage-server
+    env_file:
+      - env/elastic.env
+      - env/scylla.env
+    ports:
+      - ${STORAGE_PORT_EXT}:8000
+    networks:
+      - siman_net
+      # - doc_public_net
+    # for dev reasons..
+    volumes:
+      - ./server/:/code
+networks:
+  phoros_public_net:
+    name: siman_net
+    driver: bridge
