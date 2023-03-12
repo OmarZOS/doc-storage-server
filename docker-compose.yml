@@ -8,6 +8,7 @@ services:
     env_file:
       - env/elastic.env
       - env/scylla.env
+      - env/mysql.env
     ports:
       - ${STORAGE_PORT_EXT}:8000
     networks:
@@ -17,6 +18,5 @@ services:
     volumes:
       - ./server/:/code
 networks:
-  phoros_public_net:
-    name: siman_net
-    driver: bridge
+  siman_net:
+    external: true
