@@ -1,7 +1,7 @@
 
 
-from server.storage.storage_broker import StorageBroker
-import server.core.messages as messages
+from storage.storage_broker import StorageBroker
+import core.messages as messages
 
 broker = StorageBroker()
 
@@ -11,11 +11,11 @@ def insert_doc_by_id(doc_id: str):
 
 def insert_doc(doc):
     attribs = [attr for attr in dir(doc) if not attr.startswith('__') and not callable(getattr(doc, attr))]
-    vals = []
+    data = {}
     for attr in attribs:
-        vals.add(doc[attr]) 
+        data[attr] = doc[attr] 
     
-    res = broker.insert_document(attribs, vals)
+    res = broker.insert_document(data)
     
     # TODO: update query response message here..
     

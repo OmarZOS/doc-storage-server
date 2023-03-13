@@ -3,6 +3,7 @@
 
 def singleton(class_):
     instances = {}
+    @staticmethod
     def getinstance(*args, **kwargs):
         if class_ not in instances:
             instances[class_] = class_(*args, **kwargs)
@@ -12,11 +13,13 @@ def singleton(class_):
 
 @singleton
 class locator:
-    pass
-    # graphers = {}
-    # for api in QUEUES:
-    #     graphers[api] = grapher(api)
     
-    # def getgrapher(self,apiname):
-    #     return self.graphers[apiname]
+    services = {}
+    
+    def get_service(self,service_name):
+        return self.services[service_name]()
+
+    def subscribe_service(self,service_name,service):
+        self.services[str(service_name)] = service
+
 

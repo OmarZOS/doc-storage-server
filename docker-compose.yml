@@ -13,6 +13,7 @@ services:
       - ${STORAGE_PORT_EXT}:8000
     networks:
       - siman_net
+      - public_net
       # - doc_public_net
     # for dev reasons..
     volumes:
@@ -20,3 +21,4 @@ services:
 networks:
   siman_net:
     external: true
+  public_net:

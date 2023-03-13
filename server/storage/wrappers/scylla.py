@@ -1,7 +1,7 @@
 
 from cassandra.cluster import Cluster
 from constants import *
-from server.storage.storage_service.StorageService import StorageService
+from storage.storage_service.StorageService import StorageService
 
 
 

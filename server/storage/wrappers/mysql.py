@@ -1,6 +1,7 @@
 
 from constants import *
 from core.locator import singleton
+from core.models import QUERY_RESULTS, Query
 from storage.storage_service.StorageService import *
 
 import mysql.connector
@@ -25,6 +26,7 @@ class mysql_wrapper(StorageService):
         self.mysql_driver.cursor().execute(statement)
         
         self.mysql_driver.cursor().commit()
+        return True
         
     def _get(self,table_name,fields,conditions):
         # for the sake of simplicity..
@@ -51,10 +53,16 @@ class mysql_wrapper(StorageService):
     def test_connection(self):
         return self.mysql_driver.ping()
 
-    def queryData(self,data):
+    def queryData(self,query: Query):
         # simple direct queries for now..
-        return self.get(data["table_name"],data["fields"],data["conditions"])
+        return self.get(query["table_name"],query["fields"],query["conditions"])
     
-    def saveData(self,data):
+    def saveData(self,query : Query):
         # and pray that it will work..
-        self._insert(self,data["table_name"],data["fields"],data["args"])
+        try:
+            self._insert(self,query["table_name"],query["fields"],query["args"])
+            return True
+        except:
+            raise
+        
+        
