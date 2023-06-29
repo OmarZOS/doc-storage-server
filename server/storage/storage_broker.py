@@ -1,46 +1,30 @@
+# This component is responsible for choosing the right place
+# to insert data in the most appropriate
+# store, it can hold multiple
+# storage engines, the insertion logic is in here
 
-from constants import DOCUMENT_DATABASE_NAME
-from core.locator import locator
+from constants import DB_URI, DOCUMENT_TABLE_NAME,SQL_SCHEMA
+import wrappers.mysql as doc_store
+from core.models import Document
 
+def insert_document(document:Document):
+    engine = doc_store.get_engine(DB_URI)
+    res = doc_store.create_record(engine,SQL_SCHEMA,DOCUMENT_TABLE_NAME,document)
+    return res
 
-class StorageBroker:
-    
-    # for concrete doc storage databases like scyllaDB
-    @staticmethod
-    def _get_document_provider():
-        return locator().get_service(DOCUMENT_DATABASE_NAME)
-        
-    def insert_document(self,data):
-        doc_store = self._get_document_provider()
-        
-        query = self._build_query(data)
-        
-        res = doc_store.saveData(query)
-        return res
-        
-    def get_document(self,data):
-        doc_store = self._get_document_provider()
-        
-        query = self._build_query(data)
-        
-        res = doc_store.queryData(query)
-        return res
+def get_document(conditions):
+    engine = doc_store.get_engine(DB_URI)
+    res = doc_store.read_records(engine,SQL_SCHEMA,DOCUMENT_TABLE_NAME,conditions)
+    return res
 
-    # for meta search engines like elasticsearch
-    def _get_document_seeker():
-        pass
-    
-    def insert_metadata(args):
-        pass
+def get(table_names,fields,conditions):
+    engine = doc_store.get_engine(DB_URI)
+    res = doc_store.read_records(engine,SQL_SCHEMA,DOCUMENT_TABLE_NAME,conditions)
+    return res
 
-    def search_for(search_tokens):
-        pass
-    
-    def _build_query(self,data):
-        
-        query = data
-        # this can get more complicated in translating queries
-        # depending on the client's standards
-        # for the sake of simplicity, we return it as it is
-         
-        return query
+# for meta search engines like elasticsearch
+def insert_metadata(args):
+    pass
+
+def search_for(search_tokens):
+    pass

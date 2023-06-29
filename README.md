@@ -13,7 +13,7 @@ Use this command to build and deploy the containers:
 
     sudo docker-compose up -d
 
-#### Native
+#### Native installation
 
 Just try to convince your employer to switch to cloud services, if they would not, well.. good luck or find another employer.
 
@@ -30,7 +30,7 @@ Just try to convince your employer to switch to cloud services, if they would no
   - [ ] Elasticsearch.
     - [ ] Insertion.
     - [ ] Retrieval.
-  - [ ] MySQL.
+  - [ ] SQL. (We're using sqlAlchemy)
     - [ ] Insertion.
     - [ ] Retrieval.
   - [ ] ~~ScyllaDB~~. (Review decision)

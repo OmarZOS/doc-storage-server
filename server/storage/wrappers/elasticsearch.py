@@ -1,13 +1,11 @@
 
 from constants import *
-from core.locator import singleton
 from storage.storage_service.StorageService import *
 
 from elasticsearch import Elasticsearch
 
 
 
-@singleton
 class elastic_wrapper(StorageService):
     
     def __init__(self): # name...,node/edge

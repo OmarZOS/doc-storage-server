@@ -1,28 +1,26 @@
+# here, we make schema translations
 
 
-from storage.storage_broker import StorageBroker
-import core.messages as messages
+from server.core.api_models import API_Document
+import storage_broker
 
-broker = StorageBroker()
+
+
 
 
 def insert_doc_by_id(doc_id: str):
     pass
 
-def insert_doc(doc):
-    attribs = [attr for attr in dir(doc) if not attr.startswith('__') and not callable(getattr(doc, attr))]
-    data = {}
-    for attr in attribs:
-        data[attr] = doc[attr] 
+def insert_doc(doc: API_Document):
     
-    res = broker.insert_document(data)
     
-    # TODO: update query response message here..
-    
+    res = storage_broker.insert_document(data)
     return res
     
     
     
+
+
 
 
 
