@@ -14,7 +14,7 @@ class API_Document(Base):
     idDocument_type = Column(Integer)
     document_type_label_fr = Column(String(45))
     document_type_label_ar = Column(String(45))
-    
+
     idContainer = Column(Integer)
     type_container = Column(String(45))
     
@@ -24,6 +24,7 @@ class API_Document(Base):
     store_label_ar = Column(String(45))
     store_acronym_fr = Column(String(45))
     store_acronym_ar = Column(String(45))
+    
     Document_data = Column(LargeBinary)
     
     idDomain_Organisation = Column(Integer)

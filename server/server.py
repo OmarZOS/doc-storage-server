@@ -3,7 +3,6 @@ from constants import *
 from core.api_models import API_Document
 from features.doc_fetch import fetch_doc_by_id
 from features.doc_insertion import insert_doc
-from storage.wrappers.mysql import mysql_wrapper
 
 # ----------- App initialisation -------------------------------------
 
