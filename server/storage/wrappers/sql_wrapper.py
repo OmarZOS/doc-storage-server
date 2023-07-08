@@ -1,6 +1,6 @@
 
-from constants import *
-from storage.storage_service.StorageService import *
+from server.constants import *
+from server.storage.storage_service.StorageService import *
 from sqlalchemy import create_engine 
 from sqlalchemy.orm import sessionmaker
 
@@ -16,11 +16,60 @@ def get_session(engine):
     return Session()
 
 # Function to add an record to a table
-def add_record(engine,obj):
+# Function to add a record to a table
+def add_record(engine, obj):
     session = get_session(engine)
-    session.add(obj)
+    obj_class = type(obj)
+
+    # Remove empty and private attributes
+    obj_dict = {
+        attr: value
+        for attr, value in obj.__dict__.items()
+        if not attr.startswith('_') and value is not None
+    }
+    
+    # Get the primary key column name
+    primary_key_name = obj_class.__table__.primary_key.columns.keys()[0]
+
+    # Get the primary key value
+    primary_key_value = obj_dict.get(primary_key_name)
+
+    if primary_key_value is not None:
+        # Check if the object with the given primary key value exists in the database
+        existing_obj = session.query(obj_class).filter_by(**{primary_key_name: primary_key_value}).first()
+
+        if existing_obj is not None:
+            # Object already exists, return the existing object
+            return existing_obj
+
+    # Exclude the primary key attribute from obj_dict
+    obj_dict = {attr: value for attr, value in obj_dict.items() if attr != primary_key_name}
+
+    # Check if there are identical rows to the given fields
+    existing_objs = session.query(obj_class).filter_by(**obj_dict).all()
+
+    if existing_objs:
+        # There are identical rows to the given fields, return the first existing object
+        return existing_objs[0]
+
+    # Create a new object with non-empty attributes
+    new_obj = obj_class(**obj_dict)
+
+    # Add the new object to the session and commit
+    session.add(new_obj)
     session.commit()
-    return obj
+    session.refresh(new_obj)
+    # Return the added object
+    return new_obj
+
+
+
+# Function to add many records to tables
+def add_records(engine,objs):
+    session = get_session(engine)
+    session.add_all(objs)
+    session.commit()
+    return objs
 
 # Function to get all records from a table
 def get_all_records(engine,model_class):

@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from constants import *
-from core.api_models import API_Document
-from features.doc_fetch import fetch_doc_by_id
-from features.doc_insertion import insert_doc
+from server.constants import *
+from server.core.api_models import API_Document
+from server.features.doc_fetch import fetch_doc_by_id
+from server.features.doc_insertion import insert_doc
 
 # ----------- App initialisation -------------------------------------
 

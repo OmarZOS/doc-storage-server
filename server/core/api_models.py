@@ -1,111 +1,88 @@
 # these are fixed models, that are not likely
 # destined for future changes
 
-from sqlalchemy import Column, Date, Integer, LargeBinary, SmallInteger, String
-from sqlalchemy.dialects.mysql import TINYINT
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
-metadata = Base.metadata
+from datetime import date
+from pydantic import BaseModel
 
-class API_Document(Base):
-    __tablename__ = 'Document'
-    Doc_ID = Column(Integer, nullable=False)
-    idDocument_type = Column(Integer)
-    document_type_label_fr = Column(String(45))
-    document_type_label_ar = Column(String(45))
+class API_Document(BaseModel):
+    Doc_ID: int
+    idDocument_type: int
+    document_type_label_fr: str
+    document_type_label_ar: str
+    idContainer: int
+    type_container: str
+    idStore: int
+    Storetype: str
+    store_label_fr: str
+    store_label_ar: str
+    store_acronym_fr: str
+    store_acronym_ar: str
+    Document_data: bytes
+    idDomain_Organisation: int
+    Domain_Organisation_label_fr: str
+    Domain_Organisation_label_ar: str
+    Domain_Organisation_acronym_fr: str
+    Domain_Organisation_acronym_ar: str
+    belonging_code: str
+    reference_id: int
+    reference_year: int
+    reference_ar: str
+    reference_fr: str
+    Doc_Label: str
+    idContainer_position: int
+    idShelf: int
+    idCob: int
+    idBay: int
+    idCabinet: int
 
-    idContainer = Column(Integer)
-    type_container = Column(String(45))
-    
-    idStore = Column(Integer)
-    Storetype = Column(String(45))
-    store_label_fr = Column(String(45))
-    store_label_ar = Column(String(45))
-    store_acronym_fr = Column(String(45))
-    store_acronym_ar = Column(String(45))
-    
-    Document_data = Column(LargeBinary)
-    
-    idDomain_Organisation = Column(Integer)
-    Domain_Organisation_label_fr = Column(String(45))
-    Domain_Organisation_label_ar = Column(String(45))
-    Domain_Organisation_acronym_fr = Column(String(45))
-    Domain_Organisation_acronym_ar = Column(String(45))
-    belonging_code = Column(String(45))
-    
-    reference_id = Column(Integer)
-    reference_year = Column(Integer)
-    reference_ar = Column(String(45))
-    reference_fr = Column(String(45))
-    
-    Doc_Label = Column(String(255))
-    
-    idContainer_position = Column(Integer)
-    idShelf = Column(Integer)
-    idCob = Column(Integer)
-    idBay = Column(Integer)
-    idCabinet = Column(Integer)
+class API_Organisation(BaseModel):
+    id_Organisation: int
+    idRegion: int
+    region_label_fr: str
+    region_label_ar: str
+    region_acronym_fr: str
+    region_acronym_ar: str
+    idSector: int
+    label_sector_fr: str
+    label_sector_ar: str
+    acronym_sector_fr: str
+    acronym_sector_ar: str
+    Organisation_name_ar: str
+    Organisation_name_fr: str
+    organisation_acronym_ar: str
+    organisation_acronym_fr: str
 
-class API_Organisation(Base):
-    __tablename__ = 'Source'
-    id_Organisation = Column(Integer)
-    
-    idRegion = Column(Integer)
-    region_label_fr = Column(String(45))
-    region_label_ar = Column(String(45))
-    region_acronym_fr = Column(String(45))
-    region_acronym_ar = Column(String(45))
-    
-    idSector = Column(Integer)
-    label_sector_fr = Column(String(45))
-    label_sector_ar = Column(String(45))
-    acronym_sector_fr = Column(String(45))
-    acronym_sector_ar = Column(String(45))
-    
-    Organisation_name_ar = Column(String(255))
-    Organisation_name_fr = Column(String(255))
-    organisation_acronym_ar = Column(String(45))
-    organisation_acronym_fr = Column(String(45))
+class API_Elimination(BaseModel):
+    idElimination: int
+    idTranscript: int
+    reference_transcript: str
+    max_eliminated_date: date
+    min_eliminated_date: date
 
-class API_Elimination(Base):
-    __tablename__ = 'Elimination'
-    idElimination = Column(Integer, nullable=False)
-    idTranscript = Column(Integer)
-    reference_transcript = Column(String(45))
-    max_eliminated_date = Column(Date)
-    min_eliminated_date = Column(Date)
+class API_Person(BaseModel):
+    idprofile_rank: int
+    profile_rank_label_fr: str
+    profile_rank_label_ar: str
+    profile_rank_acronym_fr: str
+    profile_rank_acronym_ar: str
+    idProfile: int
+    Profile_serial: str
+    idDomain_Organisation: int
+    Domain_Organisation_label_fr: str
+    Domain_Organisation_label_ar: str
+    Domain_Organisation_acronym_fr: str
+    Domain_Organisation_acronym_ar: str
+    PERSON_ID: int
+    Person_name: str
+    Person_lastname: str
+    idtrainee: int
+    idsession: int
+    session_start_date: date
+    session_end_date: date
 
-class API_Person(Base):
-    __tablename__ = 'Person'
-    
-    idprofile_rank = Column(Integer)
-    profile_rank_label_fr = Column(String(45))
-    profile_rank_label_ar = Column(String(45))
-    profile_rank_acronym_fr = Column(String(45))
-    profile_rank_acronym_ar = Column(String(45))
-    
-    idProfile = Column(Integer)
-    Profile_serial = Column(String(45))
-    
-    idDomain_Organisation = Column(Integer)
-    Domain_Organisation_label_fr = Column(String(45))
-    Domain_Organisation_label_ar = Column(String(45))
-    Domain_Organisation_acronym_fr = Column(String(45))
-    Domain_Organisation_acronym_ar = Column(String(45))
-    
-    PERSON_ID = Column(Integer)
-    Person_name = Column(String(45))
-    Person_lastname = Column(String(45))
-    
-    idtrainee = Column(Integer)
-    idsession = Column(Integer)
-    session_start_date = Column(Date)
-    session_end_date = Column(Date)
-
-class API_User(Base):
-    __tablename__ = 'User'
-    USER_ID = Column(Integer)
-    USER_NAME = Column(String(45))
-    USER_PASSWORD = Column(String(255))
-    admin_privilege = Column(TINYINT)
+class API_User(BaseModel):
+    USER_ID: int
+    USER_NAME: str
+    USER_PASSWORD: str
+    admin_privilege: bool
