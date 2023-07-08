@@ -3,7 +3,7 @@ from server.constants import *
 from server.storage.storage_service.StorageService import *
 from sqlalchemy import create_engine 
 from sqlalchemy.orm import sessionmaker
-
+from sqlalchemy.orm import joinedload
 
 # engine = create_engine(DB_URI)
 def get_engine(db_uri):
@@ -82,12 +82,23 @@ def get_record_by_id(engine,model_class, id):
     return session.query(model_class).get(id)
 
 # Function to get objects from a table based on conditions
-def get_records(engine,model_class, conditions = None):
+def get_records(engine, model_class, conditions=None, join_tables=None):
     session = get_session(engine)
     query = session.query(model_class)
+
+    # Join tables if specified
+    if join_tables:
+        for join_table in join_tables:
+            query = query.join(join_table)
+
+    # Apply conditions if specified
     if conditions:
         for attr, value in conditions.items():
-            query = query.filter(getattr(model_class, attr) == value)
+            query = query.filter(getattr(model_class, str(attr).split(".")[1]) == str(value))
+
+    # Use joinedload to eager load relationships
+    query = query.options(joinedload('*'))
+
     return query.all()
 
 # Function to update an record in a table
