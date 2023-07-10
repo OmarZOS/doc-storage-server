@@ -1,15 +1,16 @@
 from fastapi import FastAPI
 from server.constants import *
-from server.core.api_models import API_Document
-from server.features.doc_fetch import fetch_doc_by_id
-from server.features.doc_insertion import insert_doc
+from server.core.api_models import API_Document, API_Person
+from server.features.document.doc_fetch import fetch_doc_by_id
+from server.features.document.doc_insertion import insert_doc
+from server.features.person.person_insertion import insert_person, insert_trainee
 
 # ----------- App initialisation -------------------------------------
 
 DOCUMENT_DATABASE_NAME = "MYSQL_SERVICE"
 app = FastAPI()
 
-# ------------- Routes -----------------------------------------------
+# ------------- Document related Routes -----------------------------------------------
 
 @app.get("/")
 def home():
@@ -29,4 +30,21 @@ def insert_document(document: API_Document):
 def search_doc(search_args: str):
     doc = fetch_doc_by_id( search_args)
     return doc
+
+# ------------- Person related Routes -----------------------------------------------
+
+@app.post("/person/insertion")
+def insertPerson(person: API_Person):
+    res = insert_person(person)
+    return res
+
+@app.post("/trainee/insertion")
+def insertTrainee(person: API_Person):
+    res = insert_trainee(person)
+    return res
+
+
+
+
+
 
