@@ -6,15 +6,15 @@ from server.features.insertion import insert_or_complete_or_raise
 
 def insert_person(api_person: API_Person):
     
-    organisation = Organisation(id_Organisation=api_person.id_Organisation,Organisation_name_ar=api_person.Organisation_name_ar,Organisation_name_fr=api_person.Organisation_name_fr,ACRONYM_AR=api_person.ACRONYM_AR,ACRONYM_FR=api_person.ACRONYM_FR,Organisation_domain_id_ref=api_person.Organisation_domain_id_ref,sector_ref_id=api_person.sector_ref_id)
+    organisation = Organisation(id_Organisation=api_person.CurrentOrgID,Organisation_name_ar=api_person.OrgLabelAR,Organisation_name_fr=api_person.OrgLabelFR,ACRONYM_AR=api_person.OrgAcronymAR,ACRONYM_FR=api_person.OrgAcronymFR,Organisation_domain_id_ref=api_person.CurrentOrgDomainID,sector_ref_id=api_person.CurrentSectorID)
     code,organisation,msg = insert_or_complete_or_raise(organisation)
     if (code == 1): return msg
     
-    profile = Profile(idProfile=api_person.idProfile,Profile_serial=api_person.Profile_serial,Profile_rank_id_ref = api_person.idprofile_rank,Profile_position_org=organisation.id_Organisation,Profile_domain_id_ref=api_person.idDomain_Organisation)
+    profile = Profile(idProfile=api_person.ProfileID,Profile_serial=api_person.ProfileSerial,Profile_rank_id_ref = api_person.RankID,Profile_position_org=organisation.id_Organisation,Profile_domain_id_ref=api_person.PersonDomainID)
     code,profile,msg = insert_or_complete_or_raise(profile)
     if (code == 1): return msg
     
-    person = Person(PERSON_ID = api_person.PERSON_ID,Person_name = api_person.Person_name,Person_lastname = api_person.Person_lastname,Person_profile_id_ref = profile.idProfile)
+    person = Person(PERSON_ID = api_person.PersonID,Person_name = api_person.PersonName,Person_lastname = api_person.PersonLastname,Person_profile_id_ref = profile.idProfile)
     code,person,msg = insert_or_complete_or_raise(person)
     if (code == 1): return msg
     
@@ -34,3 +34,4 @@ def insert_trainee(api_trainee: API_Person):
     if (code == 1): return msg
     
     return trainee
+

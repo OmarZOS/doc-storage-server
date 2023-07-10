@@ -3,90 +3,94 @@
 
 
 from datetime import date
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 
 class API_Document(BaseModel):
-    Doc_ID: Optional[int]
-    idDocument_type: Optional[int]
-    document_type_label_fr: Optional[str]
-    document_type_label_ar: Optional[str]
-    idContainer: Optional[int]
-    type_container: Optional[str]
-    idStore: Optional[int]
-    Storetype: Optional[str]
-    store_label_fr: Optional[str]
-    store_label_ar: Optional[str]
-    store_acronym_fr: Optional[str]
-    store_acronym_ar: Optional[str]
-    Document_data: Optional[bytes]
-    idDomain_Organisation: Optional[int]
-    Domain_Organisation_label_fr: Optional[str]
-    Domain_Organisation_label_ar: Optional[str]
-    Domain_Organisation_acronym_fr: Optional[str]
-    Domain_Organisation_acronym_ar: Optional[str]
-    belonging_code: Optional[str]
-    reference_id: Optional[int]
-    reference_year: Optional[int]
-    reference_ar: Optional[str]
-    reference_fr: Optional[str]
-    Doc_Label: Optional[str]
-    idContainer_position: Optional[int]
-    idShelf: Optional[int]
-    idCob: Optional[int]
-    idBay: Optional[int]
-    idCabinet: Optional[int]
+    DocumentID: Optional[int] = Field(default=None)
+    DocTypeID: Optional[int] = Field(default=None)
+    ContainerID: Optional[int] = Field(default=None)
+    StoreID: Optional[int] = Field(default=None)
+    DomainID: Optional[int] = Field(default=None)
+    ReferenceID: Optional[int] = Field(default=None)
+    ContainerPositionID: Optional[int] = Field(default=None)
+    ShelfID: Optional[int] = Field(default=None)
+    CobID: Optional[int] = Field(default=None)
+    BayID: Optional[int] = Field(default=None)
+    CabinetID: Optional[int] = Field(default=None)
+    DocTypeLabelFR: Optional[str] = Field(default=None)
+    DocTypeLabelAR: Optional[str] = Field(default=None)
+    ContainerType: Optional[str] = Field(default=None)
+    StoreType: Optional[str] = Field(default=None)
+    StoreLabelFR: Optional[str] = Field(default=None)
+    StoreLabelAR: Optional[str] = Field(default=None)
+    StoreAcronymFR: Optional[str] = Field(default=None)
+    StoreAcronymAR: Optional[str] = Field(default=None)
+    DocumentData: Optional[bytes] = Field(default=None)
+    DomainLabelFR: Optional[str] = Field(default=None)
+    DomainLabelAR: Optional[str] = Field(default=None)
+    DomainAcronymFR: Optional[str] = Field(default=None)
+    DomainAcronymAR: Optional[str] = Field(default=None)
+    BelongingCode: Optional[str] = Field(default=None)
+    ReferenceYear: Optional[int] = Field(default=None)
+    ReferenceAR: Optional[str] = Field(default=None)
+    ReferenceFR: Optional[str] = Field(default=None)
+    DocumentLabel: Optional[str] = Field(default=None)
 
 class API_Organisation(BaseModel):
-    id_Organisation: Optional[int]
-    idRegion: Optional[int]
-    region_label_fr: Optional[str]
-    region_label_ar: Optional[str]
-    region_acronym_fr: Optional[str]
-    region_acronym_ar: Optional[str]
-    idSector: Optional[int]
-    label_sector_fr: Optional[str]
-    label_sector_ar: Optional[str]
-    acronym_sector_fr: Optional[str]
-    acronym_sector_ar: Optional[str]
-    Organisation_name_ar: Optional[str]
-    Organisation_name_fr: Optional[str]
-    organisation_acronym_ar: Optional[str]
-    organisation_acronym_fr: Optional[str]
+    OrgID: Optional[int] = Field(default=None)
+    RegionID: Optional[int] = Field(default=None)
+    SectorID: Optional[int] = Field(default=None)
+    RegionLabelFR: Optional[str] = Field(default=None)
+    RegionLabelAR: Optional[str] = Field(default=None)
+    RegionAcronymFR: Optional[str] = Field(default=None)
+    RegionAcronymAR: Optional[str] = Field(default=None)
+    SectorLabelFR: Optional[str] = Field(default=None)
+    SectorLabelAR: Optional[str] = Field(default=None)
+    SectorAcronymFR: Optional[str] = Field(default=None)
+    SectorAcronymAR: Optional[str] = Field(default=None)
+    OrgNameAR: Optional[str] = Field(default=None)
+    OrgNameFR: Optional[str] = Field(default=None)
+    OrgAcronymAR: Optional[str] = Field(default=None)
+    OrgAcronymFR: Optional[str] = Field(default=None)
 
 class API_Elimination(BaseModel):
-    idElimination: Optional[int]
-    idTranscript: Optional[int]
-    reference_transcript: Optional[str]
-    max_eliminated_date: Optional[date]
-    min_eliminated_date: Optional[date]
+    EliminationIu: Optional[int] = Field(default=None)
+    TranscriptIu: Optional[int] = Field(default=None)
+    TranscriptReference: Optional[str] = Field(default=None)
+    MaxEliminationDate: Optional[date] = Field(default=None)
+    MinEliminationDate: Optional[date] = Field(default=None)
 
-class API_Person(BaseModel):
-    idprofile_rank: Optional[int]
-    idDomain_Organisation: Optional[int]
-    idProfile: Optional[int]
-    PERSON_ID: Optional[int]
-    idtrainee: Optional[int]
-    idsession: Optional[int]
-    id_Organisation: Optional[int]
-    Organisation_domain_id_ref: Optional[str]
-    sector_ref_id: Optional[str]
-    Profile_serial: Optional[str]
-    Domain_Organisation_label_fr: Optional[str]
-    Domain_Organisation_label_ar: Optional[str]
-    Domain_Organisation_acronym_fr: Optional[str]
-    Domain_Organisation_acronym_ar: Optional[str]
-    Person_name: Optional[str]
-    Person_lastname: Optional[str]
-    session_start_date: Optional[date]
-    session_end_date: Optional[date]
-    Organisation_name_ar: Optional[str]
-    Organisation_name_fr: Optional[str]
-    ACRONYM_AR: Optional[str]
-    ACRONYM_FR: Optional[str]
-    
+
 class API_User(BaseModel):
-    USER_ID: Optional[int]
-    USER_NAME: Optional[str]
-    USER_PASSWORD: Optional[str]
-    admin_privilege: Optional[bool]
+    UserID: Optional[int]= Field(default=None)
+    UserName: Optional[str]= Field(default=None)
+    UserPassword: Optional[str]= Field(default=None)
+    AdminPrivilege: Optional[bool]= Field(default=None)
+    
+    
+class API_Person(BaseModel):
+    RankID: Optional[int] = Field(default=None)
+    PersonDomainID: Optional[int] = Field(default=None)
+    ProfileID: Optional[int] = Field(default=None)
+    PersonID: Optional[int] = Field(default=None)
+    TraineeID: Optional[int] = Field(default=None)
+    SessionID: Optional[int] = Field(default=None)
+    CurrentOrgID: Optional[int] = Field(default=None)
+    CurrentOrgDomainID: Optional[int] = Field(default=None)
+    CurrentSectorID: Optional[int] = Field(default=None)
+    ProfileSerial: Optional[str] = Field(default=None)
+    DomainLabelFR: Optional[str] = Field(default=None)
+    DomainLabelAR: Optional[str] = Field(default=None)
+    DomainAcronymFR: Optional[str] = Field(default=None)
+    DomainAcronymAR: Optional[str] = Field(default=None)
+    PersonName: Optional[str] = Field(default=None)
+    PersonLastname: Optional[str] = Field(default=None)
+    SessionStartDate: Optional[date] = Field(default=None)
+    SessionEndDate: Optional[date] = Field(default=None)
+    OrgLabelAR: Optional[str] = Field(default=None)
+    OrgLabelFR: Optional[str] = Field(default=None)
+    OrgAcronymAR: Optional[str] = Field(default=None)
+    OrgAcronymFR: Optional[str] = Field(default=None)
+        
+        
