@@ -32,7 +32,7 @@ def insert_belonging_type_domain(doc: API_Document,document_type:DocumentType):
 
 def insert_container(doc: API_Document):
     container = Container(idContainer=doc.ContainerID, type_container=doc.ContainerType)
-        
+    
     code,container,msg = insert_or_complete_or_raise(container)
     if (code == 1): return msg
     
@@ -51,12 +51,12 @@ def insert_position(doc: API_Document):
             code,bay,msg = insert_or_complete_or_raise(bay)
             if (code == 1): return msg
            
-            if(doc.CobID):
-                cob = Cob(idCob=doc.CobID,bay_ref_id=bay.idBay,Cob_ref_fr=doc.CobRefFR,Cob_ref_ar=doc.CobRefAR)               
-                code,cob,msg = insert_or_complete_or_raise(cob)
+            if(doc.RackID):
+                Rack = Rack(idRack=doc.RackID,bay_ref_id=bay.idBay,Rack_ref_fr=doc.RackRefFR,Rack_ref_ar=doc.RackRefAR)               
+                code,Rack,msg = insert_or_complete_or_raise(Rack)
                 if (code == 1): return msg
                 if(doc.ShelfID):                    
-                    shelf = Shelf(idShelf=doc.ShelfID,cob_ref_id=cob.idCob,Shelf_ref_fr=doc.ShelfRefFR,Shelf_ref_ar=doc.ShelfRefAR)
+                    shelf = Shelf(idShelf=doc.ShelfID,Rack_ref_id=Rack.idRack,Shelf_ref_fr=doc.ShelfRefFR,Shelf_ref_ar=doc.ShelfRefAR)
                     code,shelf,msg = insert_or_complete_or_raise(shelf)
                     if (code == 1): return msg
                     containerposition.Container_position_shelf_ref_id = shelf.idShelf

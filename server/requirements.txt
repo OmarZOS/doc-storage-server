@@ -5,5 +5,5 @@ uvicorn==0.17.6
 # scylla-driver
 mysql-connector-python
 sqlalchemy
-
+scikit-learn
 

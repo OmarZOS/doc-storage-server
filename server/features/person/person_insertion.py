@@ -3,6 +3,9 @@
 from server.core.api_models import API_Person
 from server.core.models import *
 from server.features.insertion import insert_or_complete_or_raise
+from server.features.search import add_token
+
+
 
 def insert_person(api_person: API_Person):
     
@@ -18,6 +21,8 @@ def insert_person(api_person: API_Person):
     code,person,msg = insert_or_complete_or_raise(person)
     if (code == 1): return msg
     
+    add_token(person.__class__.__name__,f"{person.Person_name} {person.Person_lastname}")
+    
     return person
     
 def insert_trainee(api_trainee: API_Person):
@@ -32,6 +37,12 @@ def insert_trainee(api_trainee: API_Person):
     trainee = Trainee(idtrainee = api_trainee.idtrainee,profile_ref_id=person.Person_profile_id_ref,session_ref_id=session.idsession,trainee_mark=api_trainee.trainee_mark,trainee_evaluation=api_trainee.trainee_evaluation)
     code,trainee,msg = insert_or_complete_or_raise(trainee)
     if (code == 1): return msg
+ 
+    add_token(trainee.__class__.__name__,f"{person.Person_name} {person.Person_lastname}")
     
     return trainee
 
+  
+    
+    
+    

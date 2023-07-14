@@ -49,10 +49,14 @@ Just try to convince your employer to switch to cloud services, if they would no
 - Serving feature. ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/75)
   - Documents.
   - Personnel.
+  - Domains.
+  - Origins.
+  - Organisations.
 - [x] 3rd Party storage solutions. ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/70)
   - [x] SQL based storage.
     - [x] Insertion.
     - [x] Retrieval.
+    - [ ] Search.
   - [ ] Elasticsearch.
     - [ ] Insertion.
     - [ ] Retrieval.

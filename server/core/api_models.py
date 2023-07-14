@@ -15,7 +15,7 @@ class API_Document(BaseModel):
     ReferenceID: Optional[int] = Field(default=None)
     ContainerPositionID: Optional[int] = Field(default=None)
     ShelfID: Optional[int] = Field(default=None)
-    CobID: Optional[int] = Field(default=None)
+    RackID: Optional[int] = Field(default=None)
     BayID: Optional[int] = Field(default=None)
     CabinetID: Optional[int] = Field(default=None)
     DocTypeLabelFR: Optional[str] = Field(default=None)
@@ -36,8 +36,12 @@ class API_Document(BaseModel):
     StoreLabelAR: Optional[str] = Field(default=None)
     StoreAcronymFR: Optional[str] = Field(default=None)
     StoreAcronymAR: Optional[str] = Field(default=None)
-    CobRefFR: Optional[str] = Field(default=None)
-    CobRefAR: Optional[str] = Field(default=None)
+    RackRefFR: Optional[str] = Field(default=None)
+    RackRefAR: Optional[str] = Field(default=None)
+    ShelfRefFR: Optional[str] = Field(default=None)
+    ShelfRefAR: Optional[str] = Field(default=None)
+    CabinetRefAR: Optional[str] = Field(default=None)
+    CabinetRefFR: Optional[str] = Field(default=None)
 
 class API_Organisation(BaseModel):
     OrgID: Optional[int] = Field(default=None)

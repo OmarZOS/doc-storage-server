@@ -8,11 +8,6 @@ import os
 # SCYLLA_KEYSPACE = os.getenv("SCYLLA_DEFAULT_KEYSPACE")
 
 
-
-
-
-
-
 ELASTIC_SCHEME = os.getenv("ELASTIC_SCHEME")
 ELASTIC_HOST = os.getenv("ELASTIC_HOST")
 ELASTIC_PORT = os.getenv("ELASTIC_PORT")
